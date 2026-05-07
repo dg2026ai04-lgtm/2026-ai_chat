@@ -11,160 +11,174 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# 커스텀 스타일
+# 심플 & 모던 스타일
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* 전체 배경 */
+    /* 밝은 배경 */
     .stApp {
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        background-color: #f8f9fc;
     }
 
-    /* 메인 타이틀 */
-    .main-title {
+    /* 메인 헤더 */
+    .main-header {
         text-align: center;
-        padding: 1.5rem 0 0.5rem 0;
+        padding: 2rem 0 1rem 0;
     }
-    .main-title h1 {
-        background: linear-gradient(90deg, #00d2ff, #7b2ff7, #ff6a88);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 2.8rem;
+    .main-header h1 {
+        color: #1a1a2e;
+        font-size: 2.4rem;
         font-weight: 800;
-        margin-bottom: 0;
-    }
-    .main-title p {
-        color: #a0a0c0;
-        font-size: 1.05rem;
-        margin-top: 0.3rem;
-    }
-
-    /* 카드 컨테이너 */
-    .glass-card {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 16px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        backdrop-filter: blur(12px);
-    }
-    .glass-card h3 {
-        color: #e0e0ff;
-        margin-top: 0;
-    }
-
-    /* 사용량 카드 */
-    .token-card {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 14px;
-        padding: 1.2rem;
-        text-align: center;
-    }
-    .token-card .label {
-        color: #a0a0c0;
-        font-size: 0.85rem;
         margin-bottom: 0.3rem;
     }
-    .token-card .value {
-        font-size: 1.8rem;
-        font-weight: 700;
-    }
-    .token-input .value  { color: #00d2ff; }
-    .token-output .value { color: #7b2ff7; }
-    .token-total .value  { color: #ff6a88; }
-
-    /* 모델 뱃지 */
-    .model-badge {
-        display: inline-block;
-        padding: 0.4rem 1rem;
-        border-radius: 999px;
-        font-weight: 600;
-        font-size: 0.85rem;
-    }
-    .badge-sonnet {
-        background: rgba(0,210,255,0.15);
-        color: #00d2ff;
-        border: 1px solid rgba(0,210,255,0.3);
-    }
-    .badge-opus {
-        background: rgba(123,47,247,0.15);
-        color: #b07aff;
-        border: 1px solid rgba(123,47,247,0.3);
+    .main-header p {
+        color: #6b7280;
+        font-size: 1rem;
     }
 
-    /* 답변 영역 */
-    .answer-box {
-        background: rgba(255,255,255,0.05);
-        border-left: 4px solid #7b2ff7;
-        border-radius: 0 12px 12px 0;
-        padding: 1.2rem 1.5rem;
-        color: #e0e0f0;
-        line-height: 1.7;
-        margin-top: 0.5rem;
+    /* 카드 */
+    .card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card h3 {
+        color: #1a1a2e;
+        font-size: 1.1rem;
+        margin: 0 0 1rem 0;
     }
 
     /* 구분선 */
-    .glow-divider {
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #7b2ff7, #00d2ff, transparent);
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d1d5db, transparent);
         border: none;
-        margin: 1.5rem 0;
-        border-radius: 2px;
+        margin: 1.2rem 0;
+    }
+
+    /* 토큰 카드 */
+    .token-card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+    }
+    .token-card .label {
+        color: #6b7280;
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+    }
+    .token-card .value {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+    .token-input .value  { color: #2563eb; }
+    .token-output .value { color: #7c3aed; }
+    .token-total .value  { color: #059669; }
+
+    /* 모델 뱃지 */
+    .badge {
+        display: inline-block;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.82rem;
+    }
+    .badge-sonnet {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+    }
+    .badge-opus {
+        background: #f5f3ff;
+        color: #7c3aed;
+        border: 1px solid #ddd6fe;
+    }
+
+    /* 답변 박스 */
+    .answer-box {
+        background: #ffffff;
+        border-left: 4px solid #7c3aed;
+        border-radius: 0 12px 12px 0;
+        padding: 1.2rem 1.5rem;
+        color: #1f2937;
+        line-height: 1.8;
     }
 
     /* 푸터 */
-    .footer-text {
+    .footer {
         text-align: center;
-        color: #606080;
+        color: #9ca3af;
         font-size: 0.8rem;
         padding: 2rem 0 1rem 0;
     }
 
-    /* Streamlit 기본 요소 색상 보정 */
+    /* 텍스트 입력 영역 */
     .stTextArea textarea {
-        background: rgba(255,255,255,0.05) !important;
-        color: #e0e0f0 !important;
-        border: 1px solid rgba(255,255,255,0.15) !important;
-        border-radius: 12px !important;
+        background: #ffffff !important;
+        color: #1f2937 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 10px !important;
+        font-size: 0.95rem !important;
+    }
+    .stTextArea textarea:focus {
+        border-color: #7c3aed !important;
+        box-shadow: 0 0 0 2px rgba(124,58,237,0.15) !important;
     }
     .stTextArea textarea::placeholder {
-        color: #707090 !important;
+        color: #9ca3af !important;
     }
 
-    /* 라디오 버튼 텍스트 */
-    .stRadio label, .stRadio div[role="radiogroup"] label span {
-        color: #c0c0e0 !important;
+    /* 라디오 버튼 */
+    .stRadio label span {
+        color: #374151 !important;
     }
 
-    /* 버튼 */
+    /* 메인 버튼 */
     .stButton > button[kind="primary"] {
-        background: linear-gradient(90deg, #7b2ff7, #00d2ff) !important;
+        background: linear-gradient(90deg, #7c3aed, #2563eb) !important;
         border: none !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         font-weight: 700 !important;
-        font-size: 1.05rem !important;
-        padding: 0.6rem 2rem !important;
-        transition: transform 0.2s, box-shadow 0.2s !important;
+        font-size: 1rem !important;
+        padding: 0.55rem 2rem !important;
+        color: #ffffff !important;
+        transition: transform 0.15s, box-shadow 0.15s !important;
     }
     .stButton > button[kind="primary"]:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 24px rgba(123,47,247,0.4) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 16px rgba(124,58,237,0.3) !important;
+    }
+
+    /* 성공 알림 */
+    .success-msg {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        color: #166534;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 0.5rem;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# 타이틀
+# 헤더
 # ─────────────────────────────────────────────
 st.markdown("""
-<div class="main-title">
+<div class="main-header">
     <h1>🤖 Claude AI 질문 앱</h1>
     <p>Claude AI에게 무엇이든 질문해보세요!</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="glow-divider"></div>', unsafe_allow_html=True)
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
 # API 키 로드
@@ -172,64 +186,64 @@ st.markdown('<div class="glow-divider"></div>', unsafe_allow_html=True)
 try:
     api_key = st.secrets["ANTHROPIC_API_KEY"]
 except KeyError:
-    st.error("❌ API 키가 설정되지 않았습니다. Streamlit Cloud의 Secrets에 `ANTHROPIC_API_KEY`를 추가해주세요.")
+    st.error("❌ API 키가 설정되지 않았습니다. Streamlit Cloud Secrets에 `ANTHROPIC_API_KEY`를 추가해주세요.")
     st.stop()
 
 # ─────────────────────────────────────────────
-# 모델 정보 (나중에 4.6이 나오면 여기만 수정)
+# 모델 정보
 # ─────────────────────────────────────────────
 MODELS = {
     "claude-sonnet-4-20250514": {
         "display": "Claude Sonnet 4",
-        "desc": "⚡ 빠르고 효율적",
+        "desc": "빠르고 효율적",
         "badge_class": "badge-sonnet",
         "icon": "⚡"
     },
     "claude-opus-4-20250514": {
         "display": "Claude Opus 4",
-        "desc": "🧠 강력하고 정교함",
+        "desc": "강력하고 정교함",
         "badge_class": "badge-opus",
         "icon": "🧠"
     }
 }
 
 # ─────────────────────────────────────────────
-# 모델 선택
+# 모델 선택 카드
 # ─────────────────────────────────────────────
-st.markdown('<div class="glass-card"><h3>⚙️ 모델 선택</h3>', unsafe_allow_html=True)
+st.markdown('<div class="card"><h3>⚙️ 모델 선택</h3>', unsafe_allow_html=True)
 
 selected_model = st.radio(
-    "사용할 모델을 선택하세요:",
+    "모델 선택",
     options=list(MODELS.keys()),
-    format_func=lambda k: f"{MODELS[k]['icon']} {MODELS[k]['display']}  —  {MODELS[k]['desc']}",
+    format_func=lambda k: f"{MODELS[k]['icon']}  {MODELS[k]['display']}  —  {MODELS[k]['desc']}",
     horizontal=True,
     label_visibility="collapsed"
 )
 
 info = MODELS[selected_model]
 st.markdown(
-    f'<span class="model-badge {info["badge_class"]}">'
-    f'{info["icon"]} {info["display"]} 선택됨</span>',
+    f'<span class="badge {info["badge_class"]}">'
+    f'{info["icon"]}  {info["display"]} 선택됨</span>',
     unsafe_allow_html=True
 )
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# 질문 입력
+# 질문 입력 카드
 # ─────────────────────────────────────────────
-st.markdown('<div class="glass-card"><h3>💬 질문 입력</h3>', unsafe_allow_html=True)
+st.markdown('<div class="card"><h3>💬 질문 입력</h3>', unsafe_allow_html=True)
 
 user_question = st.text_area(
     "질문을 입력하세요:",
     placeholder="예: 파이썬에서 리스트와 튜플의 차이점은 무엇인가요?",
-    height=160,
+    height=150,
     label_visibility="collapsed"
 )
 
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# 질문 전송
+# 전송 버튼
 # ─────────────────────────────────────────────
 if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=True):
 
@@ -255,14 +269,14 @@ if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=
                 total_tokens = input_tokens + output_tokens
 
                 # ── 답변 표시 ──
-                st.markdown('<div class="glow-divider"></div>', unsafe_allow_html=True)
-                st.markdown('<div class="glass-card"><h3>💡 AI 답변</h3>', unsafe_allow_html=True)
+                st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card"><h3>💡 AI 답변</h3>', unsafe_allow_html=True)
                 st.markdown(answer)
                 st.markdown('</div>', unsafe_allow_html=True)
 
-                # ── 사용량 표시 ──
-                st.markdown('<div class="glow-divider"></div>', unsafe_allow_html=True)
-                st.markdown('<div class="glass-card"><h3>📊 토큰 사용량</h3>', unsafe_allow_html=True)
+                # ── 토큰 사용량 ──
+                st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card"><h3>📊 토큰 사용량</h3>', unsafe_allow_html=True)
 
                 c1, c2, c3 = st.columns(3)
 
@@ -288,8 +302,8 @@ if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=
                     </div>""", unsafe_allow_html=True)
 
                 st.markdown(
-                    f'<br><center><span class="model-badge {info["badge_class"]}">'
-                    f'✅ {info["display"]} 사용 완료</span></center>',
+                    f'<div class="success-msg">'
+                    f'✅ {info["display"]} 응답 완료</div>',
                     unsafe_allow_html=True
                 )
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -306,9 +320,9 @@ if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=
 # ─────────────────────────────────────────────
 # 푸터
 # ─────────────────────────────────────────────
-st.markdown('<div class="glow-divider"></div>', unsafe_allow_html=True)
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown("""
-<div class="footer-text">
+<div class="footer">
     🔒 API 키는 Streamlit Secrets로 안전하게 관리됩니다<br>
     📌 당곡고등학교 AI 학습 도우미
 </div>
