@@ -1040,7 +1040,7 @@ if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=
 
                 st.session_state.total_input_tokens  += in_tok
                 st.session_state.total_output_tokens += out_tok
-                               st.session_state.chat_history.append({
+                                st.session_state.chat_history.append({
                     "role": "assistant",
                     "content": answer
                 })
@@ -1077,11 +1077,11 @@ if st.session_state.total_input_tokens > 0:
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     st.markdown('<div class="card"><h3>📊 누적 사용량 & 비용</h3>', unsafe_allow_html=True)
 
-    ti   = st.session_state.total_input_tokens
-    to   = st.session_state.total_output_tokens
-    tt   = ti + to
-    cost = calc_cost(ti, to, selected_model)
-    krw  = cost * 1400
+    ti = st.session_state.total_input_tokens
+    to_ = st.session_state.total_output_tokens
+    tt = ti + to_
+    cost = calc_cost(ti, to_, selected_model)
+    krw = cost * 1400
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -1095,7 +1095,7 @@ if st.session_state.total_input_tokens > 0:
         st.markdown(
             f'<div class="token-card to">'
             f'<div class="label">📤 출력</div>'
-            f'<div class="value">{to:,}</div></div>',
+            f'<div class="value">{to_:,}</div></div>',
             unsafe_allow_html=True
         )
     with c3:
@@ -1126,9 +1126,9 @@ if st.session_state.total_input_tokens > 0:
 # ─────────────────────────────────────────────
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown(
-    f'<div class="footer">'
-    f'🔒 API 키는 Streamlit Secrets로 안전하게 관리됩니다<br>'
-    f'📌 당곡고등학교 AI 학습 도우미 · 고교학점제 맞춤 버전'
-    f'</div>',
+    '<div class="footer">'
+    '🔒 API 키는 Streamlit Secrets로 안전하게 관리됩니다<br>'
+    '📌 당곡고등학교 AI 학습 도우미 · 고교학점제 맞춤 버전'
+    '</div>',
     unsafe_allow_html=True
 )
