@@ -1040,4 +1040,95 @@ if st.button("🔍  AI에게 질문하기", type="primary", use_container_width=
 
                 st.session_state.total_input_tokens  += in_tok
                 st.session_state.total_output_tokens += out_tok
-                st.session_state.chat_history.append({"
+                               st.session_state.chat_history.append({
+                    "role": "assistant",
+                    "content": answer
+                })
+                st.session_state.messages_for_api.append({
+                    "role": "assistant",
+                    "content": answer
+                })
+
+                st.rerun()
+
+            except anthropic.AuthenticationError:
+                st.error("❌ API 키가 올바르지 않습니다.")
+                if st.session_state.chat_history:
+                    st.session_state.chat_history.pop()
+                if st.session_state.messages_for_api:
+                    st.session_state.messages_for_api.pop()
+            except anthropic.RateLimitError:
+                st.error("⏳ 요청 한도를 초과했습니다.")
+                if st.session_state.chat_history:
+                    st.session_state.chat_history.pop()
+                if st.session_state.messages_for_api:
+                    st.session_state.messages_for_api.pop()
+            except Exception as e:
+                st.error(f"❗ 오류: {e}")
+                if st.session_state.chat_history:
+                    st.session_state.chat_history.pop()
+                if st.session_state.messages_for_api:
+                    st.session_state.messages_for_api.pop()
+
+# ═══════════════════════════════════════════════════════════
+# 📊 누적 사용량 & 비용
+# ═══════════════════════════════════════════════════════════
+if st.session_state.total_input_tokens > 0:
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="card"><h3>📊 누적 사용량 & 비용</h3>', unsafe_allow_html=True)
+
+    ti   = st.session_state.total_input_tokens
+    to   = st.session_state.total_output_tokens
+    tt   = ti + to
+    cost = calc_cost(ti, to, selected_model)
+    krw  = cost * 1400
+
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.markdown(
+            f'<div class="token-card ti">'
+            f'<div class="label">📥 입력</div>'
+            f'<div class="value">{ti:,}</div></div>',
+            unsafe_allow_html=True
+        )
+    with c2:
+        st.markdown(
+            f'<div class="token-card to">'
+            f'<div class="label">📤 출력</div>'
+            f'<div class="value">{to:,}</div></div>',
+            unsafe_allow_html=True
+        )
+    with c3:
+        st.markdown(
+            f'<div class="token-card tt">'
+            f'<div class="label">🔢 합계</div>'
+            f'<div class="value">{tt:,}</div></div>',
+            unsafe_allow_html=True
+        )
+    with c4:
+        st.markdown(
+            f'<div class="token-card tc">'
+            f'<div class="label">💰 비용</div>'
+            f'<div class="value">${cost:.4f}</div></div>',
+            unsafe_allow_html=True
+        )
+
+    st.markdown(
+        f'<div class="success-msg">'
+        f'💰 예상 비용: ${cost:.4f} (약 {krw:.0f}원) | '
+        f'{model_info["icon"]} {model_info["display"]}</div>',
+        unsafe_allow_html=True
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────
+# 푸터
+# ─────────────────────────────────────────────
+st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+st.markdown(
+    f'<div class="footer">'
+    f'🔒 API 키는 Streamlit Secrets로 안전하게 관리됩니다<br>'
+    f'📌 당곡고등학교 AI 학습 도우미 · 고교학점제 맞춤 버전'
+    f'</div>',
+    unsafe_allow_html=True
+)
