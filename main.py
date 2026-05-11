@@ -86,7 +86,7 @@ def grade_label_9(g):
     return labels.get(round(g), f"{g:.2f}등급")
 
 def grade_label_5(g):
-    labels = {1:"1등급 🏆 A 최상위",2:"2등급 🥈 B 상위",3:"3등급 C 중위",4:"4등급 D 하위",5:"5등급 E 최하위"}
+    labels = {1:"1등급 🏆 최상위(상위10%)",2:"2등급 🥈 상위권(상위34%)",3:"3등급 중위권(상위66%)",4:"4등급 하위권(상위90%)",5:"5등급 최하위(하위10%)"}
     return labels.get(round(g), f"{g:.2f}등급")
 
 # 테마
