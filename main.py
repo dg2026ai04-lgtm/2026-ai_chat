@@ -214,24 +214,56 @@ with st.sidebar:
         if learning_feature == "📝 퀴즈 모드":
             quiz_difficulty = st.selectbox("퀴즈 난이도", ["쉬움", "보통", "어려움"])
 
-    hschool_feature = "💬 진로 맞춤 질문"
+        hschool_feature = "💬 진로 맞춤 질문"
     if app_mode == "🎓 고교학점제 모드":
-        st.markdown("---")
-        hschool_feature = st.radio("🎯 기능", ["💬 진로 맞춤 질문", "📘 추천 과목 안내", "📝 생기부 주제 추천", "🏃 활동 추천"], label_visibility="collapsed")
+    st.markdown(f'<div class="career-card"><h3>🎓 나의 진로 설정</h3><span class="tag tag-blue">📂 {career_category}</span> <span class="tag tag-blue">🔍 {career_field}</span> <span class="tag tag-orange">🏫 {final_dept}</span> <span class="tag">🎂 {user_age}세</span> <span class="tag tag-purple">📊 {grade_system}</span><p style="color:{T["TEXT2"]};font-size:0.82rem;margin-top:0.7rem;margin-bottom:0;">💡 아래 채팅에서 맞춤형 AI 답변을 받을 수 있습니다!</p></div>', unsafe_allow_html=True)
 
-    st.markdown("---")
-    if st.button("🗑️ 대화 초기화", use_container_width=True):
-        st.session_state.chat_history = []
-        st.session_state.messages_for_api = []
-        st.session_state.total_input_tokens = 0
-        st.session_state.total_output_tokens = 0
-        st.rerun()
+    # 내신 계산기 선택 시 바로 실행
+    if hschool_feature == "📊 내신 계산기":
+        from grade_calculator import run_grade_calculator
+        run_grade_calculator(
+            user_age=user_age,
+            grade_system=grade_system,
+            career_field=career_field,
+            final_dept=final_dept,
+            career_category=career_category,
+            age_inst=age_inst,
+            selected_model=selected_model,
+            model_info=model_info,
+            api_key=api_key,
+            T=T,
+            MODELS=MODELS,
+            CURRENT_YEAR=CURRENT_YEAR
+        )
+        if st.session_state.total_input_tokens > 0:
+            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+            ti = st.session_state.total_input_tokens
+            to_ = st.session_state.total_output_tokens
+            cost = calc_cost(ti, to_, selected_model)
+            st.markdown(
+                f'<div class="success-msg">'
+                f'💰 누적: ${cost:.4f} (약 {cost*1400:.0f}원) | '
+                f'{model_info["icon"]} {model_info["display"]}</div>',
+                unsafe_allow_html=True
+            )
+        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="footer">'
+            '🔒 API 키는 Streamlit Secrets로 안전하게 관리됩니다<br>'
+            '📌 당곡고등학교 AI 학습 도우미 · 고교학점제 맞춤 버전'
+            '</div>',
+            unsafe_allow_html=True
+        )
+        st.stop()
 
-    if st.session_state.chat_history:
-        chat_export = "\n\n".join(f"[{'나' if m['role']=='user' else 'AI'}]\n{m['content']}" for m in st.session_state.chat_history)
-        st.download_button("📥 대화 내보내기", chat_export, file_name=f"chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt", mime="text/plain", use_container_width=True)
-
-st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    fg = {
+        "💬 진로 맞춤 질문": f"'{career_field}' 분야나 '{final_dept}' 입시에 관해 물어보세요!",
+        "📘 추천 과목 안내": f"고교학점제에서 '{final_dept}' 진학에 유리한 과목을 물어보세요!",
+        "📝 생기부 주제 추천": f"'{career_field}' 관련 생기부 주제를 추천받아보세요!",
+        "🏃 활동 추천": f"'{final_dept}' 입시에 도움되는 활동을 추천받아보세요!",
+    }
+    st.markdown(f'<div style="background:{T["TOK_BG"]};border:1px solid {T["BORDER"]};border-radius:12px;padding:0.9rem 1.1rem;margin:0.5rem 0;"><span style="color:{T["TEXT2"]};font-size:0.88rem;">💬 {fg.get(hschool_feature,"질문을 입력해주세요!")}</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 
 # 유틸 함수
